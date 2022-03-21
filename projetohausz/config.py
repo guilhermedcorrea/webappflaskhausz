@@ -1,20 +1,14 @@
 import pyodbc
 from urllib.parse import quote_plus
 import os.path
+from dotenv import load_dotenv
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-parametros = (
-"Driver={SQL Server Native Client 11.0};"
-"Server=GABRIELA-PC;"
-"Database=MercostorePrices;"
-"UID=sa;"
-"PWD=Mudar@123"
+server = os.environ.get('SERVER')
+username = os.environ.get('USERNAME')
+password = os.environ.get('PASSWORD')
 
-)
-
-DEBUG = True
-
-
-url_db = quote_plus(parametros)
-SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc:///?odbc_connect=%s' %url_db
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_DATABASE_URI = connection_url_hausz   # --> CONECTION USED FOR SQL DATABASE <-- #
+SQLALCHEMY_BINDS = {
+    "sellers": connection_url_smsfire,
+}
